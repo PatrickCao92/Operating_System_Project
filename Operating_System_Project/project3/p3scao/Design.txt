@@ -1,0 +1,20 @@
+Design and Implementation of Project 3	
+
+	This project aims to check whether the solution of sudoku puzzle is valid. It reads a txt file as input, and gives output that  shows the row, column and subgrid which doesn't contain all 1-9 digits.
+
+This program is designed as four part:
+1. main function
+2. subgrid checker
+3. row checker
+4. column checker
+
+The global variables in this program includes:
+1. A 2-D array which is used to contain the digits in sudoku solution.
+2. A boolean variable to record the status of sudoku, shows whether it is valid.
+3. A struct: parameters, which contains the position parameters for checking.
+
+	In the main function, the file reads in will be executed firstly. The function will read the "sudoku.txt" document as a file stream. Then, it use "fgets()" function to convert file stream to an array of chars or string. After that, the strtok() function is used to split the string according to the space. The digits will be stored in the 2-D array as integers. Based on this array, the start positions are generated and assigned to 27 struct parameters, 9 for row checkers, 9 for column checkers, 9 for subgrid checkers. Finally, the main function will create 27 threads for checking, and output the check result according to the global boolean variable.
+
+	The subgrid, row and column checkers has same working mechanism. Within the checker functions, a counter array is created which contain 9 integer. which will count the appearing times for 1-9 digits. Then, match every number in the target area with 1-9. If all the 1-9 are in this area, all of the counter could be 1. The counter corresponding the missing digit will be 0. Finally, output the area information and missing digits according to the counter.
+
+	What needs to be mentioned is the thread creation and parameter passing. Since the pthread_join() call is waiting the thread's termination, all the pthread_join() function will be allocated after the all pthread_create(). Thus, the execution  of threads will be arranged by CPU randomly. In the pthread_create() function, the fourth arguments will be the parameter which will be passed. Thus, it is necessary to use a struct to store all needed parameters, and the default type of this is (void *)pointer. 
